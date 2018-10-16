@@ -1,0 +1,101 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{algpseudocode, algorithm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{tabu}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\newenvironment{solution}{\begin{proof}[\textnormal{\textbf{Solution}}]}{\end{proof}}
+\newenvironment{exercise}[1]{\begin{proof}[\textnormal{\textbf{Exercise #1:}}]\phantom{\qedhere}}{\end{proof}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\begin{document}
+\begin{titlepage}\pagenumbering{gobble}
+	\centering
+	{\scshape\LARGE Factorial Problem\par}
+	\vspace{1cm}
+	{\Large\itshape Khalid Hourani\par}
+	\vspace{0.5cm}
+	\vfill
+
+% Bottom of the page
+\end{titlepage}
+\vspace*{\fill}\begin{center}{\Huge This page intentionally left blank.}\end{center}\vspace*{\fill}\thispagestyle{empty}\clearpage
+\pagenumbering{arabic}
+
+\begin{definition}
+For any $a > 1$, let $\tau(a)$ denote the smallest integer $n$ such that \[a^n<n!\] 
+\end{definition}
+
+\begin{theorem}
+$\tau(a)$ is well-defined, i.e., for any $a>1$, there exists an $n$ such that \[a^n<n!\]
+\end{theorem}
+
+\begin{proof}
+Consider the sequence $h(n)=\frac{a^n}{n!}$. We see that 
+\begin{align*}
+\lim_{n\to\infty}\frac{h(n+1)}{h(n)}&=\lim_{n\to\infty}\frac{a}{n+1}\\&=0
+\end{align*}
+
+By the ratio test, $\displaystyle\sum_{n=0}^{\infty}h(n)$ converges. Thus, the sequence $h(n)=\frac{a^n}{n!}$ converges to 0. Then, for every $\epsilon>0$, there exists an $n_0$ such that, for all $n\geq n_0$, \[\left|\frac{a^n}{n!}\right|<\epsilon\] In particular, taking $\epsilon=1$, we have $a^n<n!$ for all $n\geq n_0$. 
+\end{proof}
+
+\begin{lemma}
+For all $n>1$, $n!<n^n$.
+\end{lemma}
+
+\begin{proof}
+Proceed by induction on n. The base case is $2!=2<4=2^2$. Suppose that, for some $k>1$, $k!<k^k$. Then 
+\begin{align*}
+    (k+1)! &= k!\cdot(k+1)\\
+           &< k^k\cdot(k + 1)\text{ by the induction hypothesis}\\
+           &< (k+1)^k\cdot(k+1)\\
+           &=(k+1)^{k+1}
+\end{align*}
+\end{proof}
+
+\begin{theorem}
+For any integer $n > 1$, $\tau(n) > n$. 
+\end{theorem}
+
+\begin{proof}
+This follows directly from the above lemma: since $n!<n^n$, $\tau(n)>n$.
+\end{proof}
+
+In fact, we can tighten this lower bound to $\tau(n)>2n$. First, we show the following lemma:
+
+\begin{lemma}
+For any $n>0$, $n^{2n}(4-\frac{2}{n+1})<(n+1)^{2n}$.
+\end{lemma}
+
+\begin{proof}
+Proceed again by induction. The base case is $1^{2\cdot1}(4-\frac{2}{2})=3<4=2^2$. 
+\end{proof}
+
+\begin{theorem}
+For any integer $n > 2$, $\tau(n)>2n$.
+\end{theorem}
+
+\begin{proof}
+We shall show by induction that $n^{2n}>(2n)!$. Begin with the base case: $(3\cdot2)!=6!=720<729=3^6=3^{2\cdot3}$. 
+\end{proof}
+\end{document}
